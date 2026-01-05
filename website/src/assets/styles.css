@@ -1,0 +1,63 @@
+:root {
+    --primary-color: #ff4757;
+    --secondary-color: #2f3542;
+    --bg-color: #1e1e2e;
+    --text-color: #ffffff;
+    --pixel-size: 4px;
+}
+
+* {
+    box-sizing: border-box;
+    image-rendering: pixelated;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Press Start 2P', 'DotGothic16', 'Courier New', monospace;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.pixel-border {
+    border: var(--pixel-size) solid var(--text-color);
+    box-shadow:
+        calc(var(--pixel-size) * -1) 0 0 0 var(--bg-color),
+        var(--pixel-size) 0 0 0 var(--bg-color),
+        0 calc(var(--pixel-size) * -1) 0 0 var(--bg-color),
+        0 var(--pixel-size) 0 0 var(--bg-color),
+        calc(var(--pixel-size) * -2) 0 0 0 var(--text-color),
+        var(--pixel-size) * 2 0 0 0 var(--text-color),
+        0 calc(var(--pixel-size) * -2) 0 0 var(--text-color),
+        0 var(--pixel-size) * 2 0 0 var(--text-color);
+}
+
+.pixel-btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border: var(--pixel-size) solid #000;
+    box-shadow: inset calc(var(--pixel-size) * -1) calc(var(--pixel-size) * -1) 0 0 #b33939;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.pixel-btn:hover {
+    transform: translateY(calc(var(--pixel-size) * 0.5));
+    background-color: #ff6b81;
+}
+
+.pixel-btn:active {
+    transform: translateY(var(--pixel-size));
+    box-shadow: inset var(--pixel-size) var(--pixel-size) 0 0 #b33939;
+}
+
+section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
