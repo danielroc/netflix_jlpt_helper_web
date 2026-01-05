@@ -208,7 +208,9 @@ const toggleMenu = () => {
           </select>
         </div>
 
-        <a href="https://github.com/danielroc0108/netflix_jlpt_helper" target="_blank" class="pixel-btn sm">{{ t('nav_github') }}</a>
+        <a href="https://www.buymeacoffee.com/danielroc" target="_blank" class="pixel-btn sm coffee-btn-red">
+          <span class="coffee-icon">☕️</span> {{ t('nav_donate') }}
+        </a>
       </div>
     </nav>
 
@@ -218,6 +220,11 @@ const toggleMenu = () => {
       <div class="hero-content">
         <h1 class="hero-title">{{ t('hero_title') }}</h1>
         <p class="hero-subtitle">{{ t('hero_subtitle') }}</p>
+        <p class="hero-description">{{ t('hero_description') }}</p>
+        <div class="hero-stats-box pixel-border-sm">
+          <span class="stats-icon">📈</span>
+          {{ t('hero_stats') }}
+        </div>
         <div class="hero-actions">
           <a href="#" class="pixel-btn lg">{{ t('btn_install') }}</a>
           <a href="#demo" class="pixel-btn secondary lg">{{ t('btn_demo') }}</a>
@@ -348,6 +355,12 @@ const toggleMenu = () => {
 
     <footer class="footer">
       <p>{{ t('footer_made') }}</p>
+      <div class="footer-links">
+        <p class="footer-cta">{{ t('footer_cta') }}</p>
+        <a href="https://www.buymeacoffee.com/danielroc" target="_blank" class="pixel-link coffee-link-yellow">
+          Buy Me a Coffee <span class="footer-coffee-icon">☕️</span>
+        </a>
+      </div>
       <div class="copyright">{{ t('footer_copyright') }}</div>
     </footer>
   </div>
@@ -479,8 +492,33 @@ const toggleMenu = () => {
 
 .hero-subtitle {
   font-size: 1.2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.hero-description {
+  font-size: 1rem;
+  margin-bottom: 2rem;
   color: #ccc;
+  line-height: 1.6;
+}
+
+.hero-stats-box {
+  background: rgba(229, 9, 20, 0.1);
+  border-color: var(--primary-color);
+  padding: 1rem 1.5rem;
+  margin-bottom: 3rem;
+  font-size: 0.9rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  max-width: fit-content;
+}
+
+.stats-icon {
+  font-size: 1.5rem;
 }
 
 .hero-actions {
@@ -501,6 +539,23 @@ const toggleMenu = () => {
 .pixel-btn.secondary {
   background-color: #576574;
   box-shadow: inset -4px -4px 0 0 #2f3542;
+}
+.coffee-btn-red {
+  background-color: var(--primary-color) !important;
+  color: #ffffff !important;
+  box-shadow: inset -4px -4px 0 0 #500000 !important;
+  font-size: 0.9rem !important;
+  padding: 0.6rem 1.2rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+.coffee-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.footer-links {
+  margin: 10px 0;
 }
 
 .section-title {
@@ -862,8 +917,31 @@ const toggleMenu = () => {
 .footer {
   text-align: center;
   padding: 3rem 2rem;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: #7f8c8d;
+}
+
+.footer-cta {
+  color: #ccc;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.coffee-link-yellow {
+  color: #FFDD00 !important;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.coffee-link-yellow:hover {
+  text-decoration: underline;
+}
+
+.footer-coffee-icon {
+  font-size: 1.4rem;
 }
 
 .floating {
