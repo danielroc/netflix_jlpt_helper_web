@@ -240,8 +240,14 @@ const toggleMenu = () => {
                 </span>
                 <p>{{ hoveredWord.trans }}</p>
                 <div class="tooltip-actions">
-                  <button class="action-btn" title="Copy">📋</button>
-                  <button class="action-btn" title="Add to Flashcards">🎴</button>
+                  <button class="action-btn" title="Copy">
+                    <span class="btn-icon">📋</span>
+                    <span class="btn-text">Copy</span>
+                  </button>
+                  <button class="action-btn" title="Add to Flashcards">
+                    <span class="btn-icon">🎴</span>
+                    <span class="btn-text">Add</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -596,22 +602,44 @@ const toggleMenu = () => {
 
 .tooltip-actions {
   display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
 }
 
 .action-btn {
-  background: #444;
+  background: #3d4451;
   border: 2px solid #666;
   color: white;
-  padding: 4px;
+  padding: 6px 10px;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.1s;
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.3);
 }
 
 .action-btn:hover {
-  background: #666;
+  background: #57606f;
   border-color: white;
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px rgba(0,0,0,0.4);
+}
+
+.action-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px rgba(0,0,0,0.4);
+}
+
+.btn-icon {
+  font-size: 1.1rem;
+}
+
+.btn-text {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .tag {
