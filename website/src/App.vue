@@ -2,7 +2,22 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import { translations } from './locales'
 
-const currentLang = ref('zh-TW')
+const detectLanguage = () => {
+  const navLang = navigator.language || navigator.userLanguage
+  const supported = ['zh-TW', 'en', 'ja', 'ko', 'vi', 'th', 'id']
+  
+  // Try exact match
+  if (supported.includes(navLang)) return navLang
+  
+  // Try prefix match (e.g., 'en-US' -> 'en')
+  const shortLang = navLang.split('-')[0]
+  if (shortLang === 'zh') return 'zh-TW' // Default zh to zh-TW
+  if (supported.includes(shortLang)) return shortLang
+  
+  return 'en' // Fallback
+}
+
+const currentLang = ref(detectLanguage())
 
 const t = (key) => {
   return translations[currentLang.value][key] || translations['en'][key] || key
@@ -72,6 +87,20 @@ let autoPlayInterval = null
 let closeTimeout = null
 const wordRefs = ref([])
 const playerScreenRef = ref(null)
+
+// Testimonial Carousel
+const testimonialIndex = ref(0)
+const testimonials = computed(() => [
+  { user: t('t1_user'), text: t('t1_text'), icon: '🧑‍🎓' },
+  { user: t('t2_user'), text: t('t2_text'), icon: '👨‍💻' },
+  { user: t('t3_user'), text: t('t3_text'), icon: '👩‍🏫' }
+])
+
+onMounted(() => {
+  setInterval(() => {
+    testimonialIndex.value = (testimonialIndex.value + 1) % testimonials.value.length
+  }, 5000)
+})
 
 const startAutoPlay = () => {
   let index = 0
@@ -183,6 +212,8 @@ const toggleMenu = () => {
       </div>
     </nav>
 
+    <div class="pixel-stars"></div>
+
     <header class="hero section">
       <div class="hero-content">
         <h1 class="hero-title">{{ t('hero_title') }}</h1>
@@ -192,8 +223,11 @@ const toggleMenu = () => {
           <a href="#demo" class="pixel-btn secondary lg">{{ t('btn_demo') }}</a>
         </div>
       </div>
-      <div class="hero-image">
-        <img src="./assets/logo.png" alt="Hero Logo" class="floating" />
+      <div class="hero-visual">
+        <div class="landscape-frame pixel-border">
+          <img src="/og-image-landscape-s.png" alt="NihonGo! Hero" class="hero-img-landscape" />
+          <div class="scanlines"></div>
+        </div>
       </div>
     </header>
 
@@ -207,6 +241,10 @@ const toggleMenu = () => {
           <span class="player-title">{{ t('player_title') }}</span>
         </div>
         <div class="player-screen" ref="playerScreenRef">
+          <div class="video-bg">
+            <div class="pixel-city"></div>
+            <div class="city-lights"></div>
+          </div>
           <div class="scanlines"></div>
           <div class="subtitle-box">
             <span 
@@ -286,6 +324,28 @@ const toggleMenu = () => {
       </div>
     </section>
 
+    <section class="testimonials section">
+      <h2 class="section-title">{{ t('section_testimonials') }}</h2>
+      <div class="testimonial-carousel pixel-border">
+        <transition name="carousel" mode="out-in">
+          <div :key="testimonialIndex" class="testimonial-card">
+            <div class="testimonial-icon">{{ testimonials[testimonialIndex].icon }}</div>
+            <p class="testimonial-text">"{{ testimonials[testimonialIndex].text }}"</p>
+            <span class="testimonial-user">- {{ testimonials[testimonialIndex].user }}</span>
+          </div>
+        </transition>
+        <div class="carousel-dots">
+          <span 
+            v-for="(_, i) in testimonials" 
+            :key="i"
+            class="dot"
+            :class="{ active: i === testimonialIndex }"
+            @click="testimonialIndex = i"
+          ></span>
+        </div>
+      </div>
+    </section>
+
     <footer class="footer">
       <p>{{ t('footer_made') }}</p>
       <div class="copyright">{{ t('footer_copyright') }}</div>
@@ -361,14 +421,60 @@ const toggleMenu = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 4rem;
-  min-height: 30vh;
+  gap: 3rem;
+  min-height: 50vh;
+}
+
+.hero-content {
+  flex: 1;
+}
+
+.hero-visual {
+  flex: 1.2;
+}
+
+.landscape-frame {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 20px 20px 0 var(--primary-color);
+  background: #000;
+}
+
+.hero-img-landscape {
+  width: 100%;
+  display: block;
+  image-rendering: pixelated;
+}
+
+.pixel-stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
+              radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
+              radial-gradient(1px 1px at 50px 160px, #fff, rgba(0,0,0,0)),
+              radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+              radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+              radial-gradient(2px 2px at 160px 120px, #fff, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  animation: starsTwinkle 4s infinite linear;
+}
+
+@keyframes starsTwinkle {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
 }
 
 .hero-title {
-  font-size: 4rem;
+  font-size: 3.5rem;
   margin-bottom: 2rem;
   text-shadow: 4px 4px 0px var(--primary-color);
+  line-height: 1.1;
 }
 
 .hero-subtitle {
@@ -476,8 +582,45 @@ const toggleMenu = () => {
   justify-content: flex-end;
   align-items: center;
   padding-bottom: 4rem;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+  background: #000;
   overflow: hidden;
+  box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+}
+
+.video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.pixel-city {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  position: relative;
+}
+
+.city-lights {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60%;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 40px,
+    rgba(255, 235, 153, 0.1) 40px,
+    rgba(255, 235, 153, 0.1) 80px
+  );
+  animation: bgMove 20s linear infinite;
+}
+
+@keyframes bgMove {
+  from { background-position: 0 0; }
+  to { background-position: 400px 0; }
 }
 
 .scanlines {
@@ -653,7 +796,68 @@ const toggleMenu = () => {
 .tag.n1 { background: #ff4757; }
 .tag.n2 { background: #ffa502; }
 .tag.n3 { background: #2ed573; }
+.tag.n3 { background: #2ed573; }
 .tag.n4 { background: #1e90ff; }
+
+/* Testimonials Styles */
+.testimonial-carousel {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #1e272e;
+  padding: 3rem;
+  text-align: center;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  box-shadow: 10px 10px 0 var(--secondary-color);
+}
+
+.testimonial-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.testimonial-text {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+  color: #fff;
+}
+
+.testimonial-user {
+  font-size: 0.9rem;
+  color: #aaa;
+  font-weight: bold;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.carousel-dots .dot {
+  width: 10px;
+  height: 10px;
+  background: #555;
+  cursor: pointer;
+}
+
+.carousel-dots .dot.active {
+  background: var(--primary-color);
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+.carousel-enter-active, .carousel-leave-active {
+  transition: all 0.5s ease;
+}
+
+.carousel-enter-from { opacity: 0; transform: translateX(20px); }
+.carousel-leave-to { opacity: 0; transform: translateX(-20px); }
 
 .footer {
   text-align: center;

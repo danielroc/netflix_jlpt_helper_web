@@ -16,11 +16,18 @@ export const translations = {
         feature_learn_title: '學習模式',
         feature_learn_desc: '動態調整字幕間距，讓日語閱讀更輕鬆。',
         section_demo: '實機展示',
+        section_testimonials: '使用者好評',
         player_title: 'Netflix - 正在學習中...',
         footer_made: '用 ❤️ 為日語學習者打造',
         footer_copyright: '© 2026 NihonGo! 團隊',
         seo_title: 'NihonGo! - JLPT Assistant for Netflix | 超強日語學習外掛',
-        seo_desc: '讓 Netflix 成為你的最強 JLPT 學習工具。NihonGo! 提供自動 JLPT 單字標記、即時中英翻譯與分詞功能，讓你邊追劇邊輕鬆考取 N1-N5。'
+        seo_desc: '讓 Netflix 成為你的最強 JLPT 學習工具。NihonGo! 提供自動 JLPT 單字標記、即時中英翻譯與分詞功能，讓你邊追劇邊輕鬆考取 N1-N5。',
+        t1_user: '小明 / N2 考生',
+        t1_text: '這是我用過最好的日語學習工具！邊看《初戀》邊學單字，感覺進步神速。',
+        t2_user: 'Ken / 程式開發者',
+        t2_text: '分詞功能非常精準，連動詞變化都能正確辨別。',
+        t3_user: 'Sakura / 留學生',
+        t3_text: 'JLPT 標籤讓我能專注在考試會考的單字上，節省了很多查字典的時間。'
     },
     'en': {
         nav_features: 'Features',
@@ -39,11 +46,18 @@ export const translations = {
         feature_learn_title: 'Learning Mode',
         feature_learn_desc: 'Adjust subtitle spacing for easier Japanese reading.',
         section_demo: 'Live Demo',
+        section_testimonials: 'Testimonials',
         player_title: 'Netflix - Learning in progress...',
         footer_made: 'Made with ❤️ for JP Learners',
         footer_copyright: '© 2026 NihonGo! Team',
         seo_title: 'NihonGo! - JLPT Assistant for Netflix | Learn Japanese with Netflix',
-        seo_desc: 'Enhance your Japanese learning with Netflix. NihonGo! provides JLPT level tags, instant translations, and smart tokenization to help you master Japanese effortlessly.'
+        seo_desc: 'Enhance your Japanese learning with Netflix. NihonGo! provides JLPT level tags, instant translations, and smart tokenization to help you master Japanese effortlessly.',
+        t1_user: 'Xiao Ming / N2 Candidate',
+        t1_text: "The best Japanese learning tool I've ever used! Learning words while watching 'First Love' is amazing.",
+        t2_user: 'Ken / Developer',
+        t2_text: 'Tokenization is super accurate, even verb conjugations are handled perfectly.',
+        t3_user: 'Sakura / Student',
+        t3_text: 'JLPT tags help me focus on exam vocab, saving me tons of dictionary lookup time.'
     },
     'ja': {
         nav_features: '機能',
