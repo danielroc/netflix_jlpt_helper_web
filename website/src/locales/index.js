@@ -19,7 +19,7 @@ export const translations = {
         player_title: 'Netflix - 正在學習中...',
         footer_made: '用 ❤️ 為日語學習者打造',
         footer_copyright: '© 2026 NihonGo! 團隊',
-        seo_title: 'NihonGo! - Netflix JLPT 進化工具 | 超強日語學習外掛',
+        seo_title: 'NihonGo! - JLPT Assistant for Netflix | 超強日語學習外掛',
         seo_desc: '讓 Netflix 成為你的最強 JLPT 學習工具。NihonGo! 提供自動 JLPT 單字標記、即時中英翻譯與分詞功能，讓你邊追劇邊輕鬆考取 N1-N5。'
     },
     'en': {
@@ -42,7 +42,7 @@ export const translations = {
         player_title: 'Netflix - Learning in progress...',
         footer_made: 'Made with ❤️ for JP Learners',
         footer_copyright: '© 2026 NihonGo! Team',
-        seo_title: 'NihonGo! - Netflix JLPT Helper | Learn Japanese with Netflix',
+        seo_title: 'NihonGo! - JLPT Assistant for Netflix | Learn Japanese with Netflix',
         seo_desc: 'Enhance your Japanese learning with Netflix. NihonGo! provides JLPT level tags, instant translations, and smart tokenization to help you master Japanese effortlessly.'
     },
     'ja': {
@@ -65,7 +65,7 @@ export const translations = {
         player_title: 'Netflix - 学習中...',
         footer_made: '❤️ 日本語学習者のために',
         footer_copyright: '© 2026 NihonGo! チーム',
-        seo_title: 'NihonGo! - Netflix JLPT 学習 | 日本語学習支援ツール',
+        seo_title: 'NihonGo! - JLPT Assistant for Netflix | 日本語学習支援ツール',
         seo_desc: 'Netflixを最強のJLPT学習ツールに変えましょう。NihonGo!はN1-N5の語彙認識、中英翻訳、分かち書き機能を提供し、効率的な日本語学習をサポートします。'
     },
     'ko': {
@@ -88,7 +88,7 @@ export const translations = {
         player_title: 'Netflix - 학습 중...',
         footer_made: '❤️ 일본어 학습자를 위해 제작됨',
         footer_copyright: '© 2026 NihonGo! 팀',
-        seo_title: 'NihonGo! - 넷플릭스 JLPT 학습 | 일본어 공부 도우미',
+        seo_title: 'NihonGo! - JLPT Assistant for Netflix | 일본어 공부 도우미',
         seo_desc: '넷플릭스 자막을 통해 일본어를 더 효과적으로 학습하세요. JLPT 단어 자동 인식, 실시간 번역 기능을 통해 즐겁게 일본어 실력을 키울 수 있습니다.'
     },
     'vi': {
@@ -111,7 +111,7 @@ export const translations = {
         player_title: 'Netflix - Đang trong quá trình học...',
         footer_made: 'Được tạo ra với ❤️ dành cho người học tiếng Nhật',
         footer_copyright: '© 2026 Đội ngũ NihonGo!',
-        seo_title: 'NihonGo! - Công cụ học JLPT trên Netflix | Học tiếng Nhật dễ dàng',
+        seo_title: 'NihonGo! - JLPT Assistant for Netflix | Học tiếng Nhật dễ dàng',
         seo_desc: 'Biến Netflix thành công cụ học tiếng Nhật mạnh mẽ. NihonGo! giúp đánh dấu từ vựng JLPT, dịch tức thì và phân tích từ vựng giúp bạn học tiếng Nhật qua phim ảnh.'
     },
     'th': {
@@ -134,7 +134,7 @@ export const translations = {
         player_title: 'Netflix - กำลังเรียนรู้...',
         footer_made: 'สร้างด้วย ❤️ สำหรับผู้เรียนภาษาญี่ปุ่น',
         footer_copyright: '© 2026 ทีมงาน NihonGo!',
-        seo_title: 'NihonGo! - ตัวช่วยเรียน JLPT บน Netflix | เรียนภาษาญี่ปุ่นอย่างง่ายดาย',
+        seo_title: 'NihonGo! - JLPT Assistant for Netflix | เรียนภาษาญี่ปุ่นอย่างง่ายดาย',
         seo_desc: 'เปลี่ยนการดู Netflix ให้เป็นการเรียนภาษาญี่ปุ่นที่ทรงพลัง ด้วยระบบระบุคำศัพท์ JLPT และแปลภาษาทันที ช่วยให้คุณเก่งภาษาญี่ปุ่นได้ทุกวัน'
     },
     'id': {
@@ -157,7 +157,7 @@ export const translations = {
         player_title: 'Netflix - Sedang belajar...',
         footer_made: 'Dibuat dengan ❤️ untuk Pembelajar Bahasa Jepang',
         footer_copyright: '© 2026 Tim NihonGo!',
-        seo_title: 'NihonGo! - Belajar JLPT di Netflix | Pembantu Belajar Bahasa Jepang',
+        seo_title: 'NihonGo! - JLPT Assistant for Netflix | Pembantu Belajar Bahasa Jepang',
         seo_desc: 'Ubah Netflix menjadi alat bantu belajar JLPT terbaik. NihonGo! membantu menandai kosakata JLPT dan memberikan terjemahan instan.'
     }
 }
