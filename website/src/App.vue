@@ -426,12 +426,30 @@ const toggleMenu = () => {
 .lang-th { font-family: 'Chakra Petch', sans-serif; font-weight: 700; }
 .lang-vi, .lang-id { font-family: 'Pixelify Sans', sans-serif; }
 
+/* English Font Size Optimization */
+.lang-en .hero-title { font-size: 2.2rem; }
+.lang-en .hero-subtitle { font-size: 0.9rem; }
+.lang-en .hero-description { font-size: 0.8rem; letter-spacing: 0.2px; }
+.lang-en .hero-stats-box { font-size: 0.7rem; padding: 0.8rem 1.2rem; }
+.lang-en .nav-links a { font-size: 0.8rem; }
+.lang-en .pixel-btn.lg { font-size: 0.8rem; padding: 1rem 2rem; }
+.lang-en .pixel-btn.sm { font-size: 0.7rem; }
+.lang-en .coffee-btn-red { font-size: 0.75rem !important; padding: 0.5rem 1rem !important; }
+.lang-en .section-title { font-size: 1.5rem; }
+.lang-en .feature-title { font-size: 0.8rem; }
+.lang-en .feature-desc { font-size: 0.65rem; }
+.lang-en .testimonial-text { font-size: 0.9rem; }
+.lang-en .footer { font-size: 0.65rem; }
+.lang-en .footer-cta { font-size: 0.7rem; }
+.lang-en .coffee-link-yellow { font-size: 0.75rem; }
+
 .section {
   padding: 4rem 2rem;
 }
 
 .hero {
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
   gap: 3rem;
@@ -1012,7 +1030,7 @@ const toggleMenu = () => {
     height: 3.5rem;
   }
   .hero {
-    flex-direction: column;
+    flex-direction: column-reverse;
     text-align: center;
     padding: 2rem 1rem;
     gap: 2rem;
@@ -1037,6 +1055,13 @@ const toggleMenu = () => {
   .hero-subtitle {
     font-size: 0.9rem;
   }
+
+  /* English-specific mobile adjustments */
+  .lang-en .hero-title { font-size: 1.6rem; }
+  .lang-en .hero-subtitle { font-size: 0.75rem; }
+  .lang-en .hero-description { font-size: 0.7rem; }
+  .lang-en .hero-stats-box { font-size: 0.65rem; }
+  .lang-en .section-title { font-size: 1.2rem; }
   .section-title {
     font-size: 1.5rem;
     margin-bottom: 2rem;
