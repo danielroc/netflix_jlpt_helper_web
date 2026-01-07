@@ -208,7 +208,7 @@ const toggleMenu = () => {
           </select>
         </div>
 
-        <a href="https://www.buymeacoffee.com/danielroc" target="_blank" class="pixel-btn sm coffee-btn-red">
+        <a href="https://ko-fi.com/codeplay0301" target="_blank" class="pixel-btn sm coffee-btn-red">
           <span class="coffee-icon">☕️</span> {{ t('nav_donate') }}
         </a>
       </div>
@@ -240,6 +240,22 @@ const toggleMenu = () => {
 
     <section id="demo" class="demo section">
       <h2 class="section-title">{{ t('section_demo') }}</h2>
+
+      <!-- Real Screenshot Display -->
+      <div class="mock-player pixel-border" style="margin-bottom: 3rem; cursor: default;">
+        <div class="player-header">
+          <div class="dot red"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+          <span class="player-title">{{ t('player_title') }}</span>
+        </div>
+        <div class="player-screen-static">
+          <img src="./assets/screenshot-r.png" alt="Extension Demo" class="demo-screenshot" />
+          <div class="scanlines"></div>
+        </div>
+      </div>
+
+      <!-- Interactive Mock Demo -->
       <div class="mock-player pixel-border" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave">
         <div class="player-header">
           <div class="dot red"></div>
@@ -357,7 +373,7 @@ const toggleMenu = () => {
       <p>{{ t('footer_made') }}</p>
       <div class="footer-links">
         <p class="footer-cta">{{ t('footer_cta') }}</p>
-        <a href="https://www.buymeacoffee.com/danielroc" target="_blank" class="pixel-link coffee-link-yellow">
+        <a href="https://ko-fi.com/codeplay0301" target="_blank" class="pixel-link coffee-link-yellow">
           Buy Me a Coffee <span class="footer-coffee-icon">☕️</span>
         </a>
       </div>
@@ -658,6 +674,20 @@ const toggleMenu = () => {
   background: #000;
   overflow: hidden;
   box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+}
+
+.player-screen-static {
+  position: relative;
+  width: 100%;
+  background: #000;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.demo-screenshot {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .video-bg {
