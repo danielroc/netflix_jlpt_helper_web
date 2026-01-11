@@ -202,6 +202,12 @@ const isMenuOpen = ref(false)
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
+
+const trackEvent = (eventName, params = {}) => {
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', eventName, params)
+  }
+}
 </script>
 
 
@@ -220,7 +226,7 @@ const toggleMenu = () => {
       </button>
 
       <div class="nav-links" :class="{ 'active': isMenuOpen }">
-        <a href="#demo" @click="isMenuOpen = false">{{ t('section_demo') }}</a>
+        <a href="#demo" @click="isMenuOpen = false; trackEvent('view_demo')">{{ t('section_demo') }}</a>
         <a href="#features" @click="isMenuOpen = false">{{ t('nav_features') }}</a>
         
         <div class="lang-switcher">
@@ -231,7 +237,7 @@ const toggleMenu = () => {
           </select>
         </div>
 
-        <a href="https://ko-fi.com/codeplay0301" target="_blank" class="pixel-btn sm coffee-btn-red">
+        <a href="https://ko-fi.com/codeplay0301" target="_blank" class="pixel-btn sm coffee-btn-red" @click="trackEvent('click_donate')">
           <span class="coffee-icon">☕️</span> {{ t('nav_donate') }}
         </a>
       </div>
@@ -255,8 +261,8 @@ const toggleMenu = () => {
         </div>
 
         <div class="hero-actions">
-          <a href="#" class="pixel-btn lg">{{ t('btn_install') }}</a>
-          <a href="#demo" class="pixel-btn secondary lg">{{ t('btn_demo') }}</a>
+          <a href="#" class="pixel-btn lg" @click="trackEvent('click_install')">{{ t('btn_install') }}</a>
+          <a href="#demo" class="pixel-btn secondary lg" @click="trackEvent('view_demo')">{{ t('btn_demo') }}</a>
         </div>
       </div>
       <div class="hero-visual">
@@ -453,7 +459,7 @@ const toggleMenu = () => {
         <a href="mailto:service@codeplay.tw" class="footer-contact-btn pixel-border-sm">
           <span class="contact-icon">📧</span> service@codeplay.tw
         </a>
-        <a href="https://ko-fi.com/codeplay0301" target="_blank" class="pixel-btn sm coffee-btn-red">
+        <a href="https://ko-fi.com/codeplay0301" target="_blank" class="pixel-btn sm coffee-btn-red" @click="trackEvent('click_donate')">
           <span class="coffee-icon">☕️</span> Buy Me a Coffee
         </a>
       </div>
