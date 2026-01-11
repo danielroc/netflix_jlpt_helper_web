@@ -1,6 +1,11 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
 import { translations } from './locales'
+import screenshotEn from './assets/screenshot-en.png'
+import screenshotJa from './assets/screenshot-ja.png'
+import screenshotZh from './assets/screenshot-zh.png'
+import flashcardScreenshot from './assets/flashcard-r.png'
+import movie from './assets/movie.mov'
 
 const detectLanguage = () => {
   const navLang = navigator.language || navigator.userLanguage
@@ -23,6 +28,12 @@ const t = (key) => {
   return translations[currentLang.value][key] || translations['en'][key] || key
 }
 
+const currentScreenshot = computed(() => {
+  if (currentLang.value === 'zh-TW') return screenshotZh
+  if (currentLang.value === 'ja') return screenshotJa
+  return screenshotEn
+})
+
 // SEO Update logic
 watch(currentLang, (newLang) => {
   const title = t('seo_title')
@@ -35,13 +46,13 @@ watch(currentLang, (newLang) => {
 }, { immediate: true })
 
 const languages = [
-  { code: 'zh-TW', name: '繁體中文' },
-  { code: 'en', name: 'English' },
-  { code: 'ja', name: '日本語' },
-  { code: 'ko', name: '한국어' },
-  { code: 'vi', name: 'Tiếng Việt' },
-  { code: 'th', name: 'ไทย' },
-  { code: 'id', name: 'Bahasa Indonesia' }
+  { code: 'zh-TW', name: '繁體中文', flag: '🇹🇼' },
+  { code: 'en', name: 'English', flag: '🇺🇸' },
+  { code: 'ja', name: '日本語', flag: '🇯🇵' },
+  { code: 'ko', name: '한국어', flag: '🇰🇷' },
+  { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
+  { code: 'th', name: 'ไทย', flag: '🇹🇭' },
+  { code: 'id', name: 'Bahasa Indonesia', flag: '🇮🇩' }
 ]
 
 const features = computed(() => [
@@ -64,6 +75,17 @@ const features = computed(() => [
     title: t('feature_learn_title'),
     desc: t('feature_learn_desc'),
     icon: '📖'
+  },
+  {
+    title: t('feature_flash_title'),
+    desc: t('feature_flash_desc'),
+    icon: '🎴'
+  },
+  {
+    title: t('feature_exam_title'),
+    desc: t('feature_exam_desc'),
+    icon: '💯',
+    isComingSoon: true
   }
 ])
 const mockSubtitles = [
@@ -203,7 +225,7 @@ const toggleMenu = () => {
         <div class="lang-switcher">
           <select v-model="currentLang" class="lang-select pixel-border" @change="isMenuOpen = false">
             <option v-for="lang in languages" :key="lang.code" :value="lang.code">
-              {{ lang.name }}
+              {{ lang.flag }} {{ lang.name }}
             </option>
           </select>
         </div>
@@ -225,6 +247,12 @@ const toggleMenu = () => {
           <span class="stats-icon">📈</span>
           {{ t('hero_stats') }}
         </div>
+        
+        <div class="global-support-badge pixel-border-sm">
+           <span class="support-label">Supported in 7 Languages</span>
+           <div class="support-flags">🇹🇼 🇺🇸 🇯🇵 🇰🇷 🇻🇳 🇹🇭 🇮🇩</div>
+        </div>
+
         <div class="hero-actions">
           <a href="#" class="pixel-btn lg">{{ t('btn_install') }}</a>
           <a href="#demo" class="pixel-btn secondary lg">{{ t('btn_demo') }}</a>
@@ -232,7 +260,7 @@ const toggleMenu = () => {
       </div>
       <div class="hero-visual">
         <div class="landscape-frame pixel-border">
-          <img src="/og-image-landscape-s.png" alt="NihonGo! Hero" class="hero-img-landscape" />
+          <video :src="movie" autoplay loop muted playsinline class="hero-img-landscape"></video>
           <div class="scanlines"></div>
         </div>
       </div>
@@ -343,6 +371,53 @@ const toggleMenu = () => {
           <div class="feature-icon">{{ f.icon }}</div>
           <h3 class="feature-title">{{ f.title }}</h3>
           <p class="feature-desc">{{ f.desc }}</p>
+          <div v-if="f.isComingSoon" class="coming-soon-badge">
+            <span class="blink">✨</span> {{ t('label_coming_soon') }}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="flashcard-showcase section">
+      <div class="simplicity-container reverse">
+        <div class="simplicity-content">
+          <h2 class="section-title simplicity-title">{{ t('flashcard_section_title') }}</h2>
+          <h3 class="simplicity-subtitle">{{ t('flashcard_section_subtitle') }}</h3>
+          <p class="simplicity-desc">{{ t('flashcard_section_desc') }}</p>
+        </div>
+        <div class="simplicity-visual">
+          <div class="browser-frame pixel-border">
+             <div class="browser-header">
+              <div class="dot red"></div>
+              <div class="dot yellow"></div>
+              <div class="dot green"></div>
+              <div class="browser-url">nihongo.app/flashcards</div>
+            </div>
+            <img :src="flashcardScreenshot" alt="Flashcards" class="popup-screenshot" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section class="simplicity section">
+      <div class="simplicity-container">
+        <div class="simplicity-content">
+          <h2 class="section-title simplicity-title">{{ t('simplicity_title') }}</h2>
+          <h3 class="simplicity-subtitle">{{ t('simplicity_subtitle') }}</h3>
+          <p class="simplicity-desc">{{ t('simplicity_desc') }}</p>
+        </div>
+        <div class="simplicity-visual">
+          <div class="browser-frame pixel-border">
+            <div class="browser-header">
+              <div class="dot red"></div>
+              <div class="dot yellow"></div>
+              <div class="dot green"></div>
+              <div class="browser-url">nihongo.app</div>
+            </div>
+            <img :src="currentScreenshot" alt="Extension Popup" class="popup-screenshot" />
+          </div>
         </div>
       </div>
     </section>
@@ -370,13 +445,18 @@ const toggleMenu = () => {
     </section>
 
     <footer class="footer">
-      <p>{{ t('footer_made') }}</p>
-      <div class="footer-links">
-        <p class="footer-cta">{{ t('footer_cta') }}</p>
-        <a href="https://ko-fi.com/codeplay0301" target="_blank" class="pixel-link coffee-link-yellow">
-          Buy Me a Coffee <span class="footer-coffee-icon">☕️</span>
+      <p class="footer-made">{{ t('footer_made') }}</p>
+      <p class="footer-cta">{{ t('footer_cta') }}</p>
+      
+      <div class="footer-actions">
+        <a href="mailto:service@codeplay.tw" class="footer-contact-btn pixel-border-sm">
+          <span class="contact-icon">📧</span> service@codeplay.tw
+        </a>
+        <a href="https://ko-fi.com/codeplay0301" target="_blank" class="pixel-btn sm coffee-btn-red">
+          <span class="coffee-icon">☕️</span> Buy Me a Coffee
         </a>
       </div>
+
       <div class="copyright">{{ t('footer_copyright') }}</div>
     </footer>
   </div>
@@ -384,7 +464,7 @@ const toggleMenu = () => {
 
 <style scoped>
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -477,7 +557,7 @@ const toggleMenu = () => {
 }
 
 .hero-visual {
-  flex: 1.2;
+  flex: 1.5;
 }
 
 .landscape-frame {
@@ -551,6 +631,26 @@ const toggleMenu = () => {
   max-width: fit-content;
 }
 
+.global-support-badge {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #bdc3c7;
+  padding: 0.8rem 1.2rem;
+  margin-bottom: 2rem;
+  display: inline-block;
+}
+.support-label {
+  display: block;
+  font-size: 0.7rem;
+  color: #bdc3c7;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.support-flags {
+  font-size: 1.2rem;
+  letter-spacing: 5px;
+}
+
 .stats-icon {
   font-size: 1.5rem;
 }
@@ -604,7 +704,93 @@ const toggleMenu = () => {
   gap: 3rem;
 }
 
+.simplicity-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+.simplicity-container.reverse {
+  flex-direction: row-reverse;
+}
+
+@media (max-width: 768px) {
+  .simplicity-container, .simplicity-container.reverse {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+}
+
+.simplicity-content {
+  flex: 1;
+  text-align: left;
+}
+
+.simplicity-visual {
+  flex: 1.2;
+  display: flex;
+  justify-content: center;
+}
+
+.simplicity .simplicity-visual .browser-frame {
+  max-width: 380px;
+}
+
+.simplicity-title {
+  text-align: left;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+}
+
+.simplicity-subtitle {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.simplicity-desc {
+  font-size: 1rem;
+  color: #ccc;
+  line-height: 1.8;
+}
+
+.browser-frame {
+  background: #1e272e;
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 15px 15px 0 rgba(0,0,0,0.3);
+}
+
+.browser-header {
+  background: #2f3542;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.browser-url {
+  background: #1e272e;
+  color: #7f8c8d;
+  font-size: 0.6rem;
+  padding: 2px 8px;
+  border-radius: 2px;
+  margin-left: 0.5rem;
+  flex: 1;
+  text-align: center;
+}
+
+.popup-screenshot {
+  width: 100%;
+  display: block;
+}
+
 .feature-card {
+  position: relative;
   padding: 2rem;
   background: #2f3542;
   text-align: center;
@@ -613,6 +799,31 @@ const toggleMenu = () => {
 
 .feature-card:hover {
   transform: scale(1.05);
+}
+
+.coming-soon-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #ff4757;
+  color: white;
+  font-size: 0.6rem;
+  padding: 4px 8px;
+  border: 2px solid white;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+  transform: rotate(5deg);
+  z-index: 10;
+  font-weight: bold;
+}
+
+.blink {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .feature-icon {
@@ -964,34 +1175,61 @@ const toggleMenu = () => {
 
 .footer {
   text-align: center;
-  padding: 3rem 2rem;
+  padding: 4rem 2rem 2rem;
   font-size: 0.75rem;
   color: #7f8c8d;
+  background: #151515;
+  border-top: 2px solid #333;
+  margin-top: 4rem;
+}
+
+.footer-made {
+  color: #aaa;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .footer-cta {
-  color: #ccc;
-  margin-bottom: 0.5rem;
-  font-size: 0.8rem;
+  color: #fff;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  font-weight: bold;
 }
 
-.coffee-link-yellow {
-  color: #FFDD00 !important;
-  font-size: 0.9rem;
-  text-decoration: none;
-  display: inline-flex;
+.footer-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.footer-contact-btn {
+  display: flex;
   align-items: center;
   gap: 8px;
+  background: #2f3542;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s;
 }
 
-.coffee-link-yellow:hover {
-  text-decoration: underline;
+.footer-contact-btn:hover {
+  background: #57606f;
+  transform: translateY(-2px);
 }
 
-.footer-coffee-icon {
-  font-size: 1.4rem;
+.contact-icon {
+  font-size: 1.2rem;
 }
 
+.copyright {
+  color: #555;
+  font-size: 0.7rem;
+}
 .floating {
   animation: floating 3s ease-in-out infinite;
   width: 300px;
@@ -1051,9 +1289,15 @@ const toggleMenu = () => {
     display: flex;
   }
 
-  .lang-switcher, .lang-select {
-    width: 100%;
-    max-width: 100%;
+  .lang-switcher {
+    width: auto;
+  }
+
+  .lang-select {
+    width: auto;
+    min-width: 160px;
+    text-align: center;
+    text-align-last: center;
   }
 
   .lang-select {
@@ -1147,6 +1391,22 @@ const toggleMenu = () => {
   }
   .feature-card {
     padding: 1.5rem;
+  }
+
+  /* Simplicity Mobile */
+  .simplicity-container {
+    flex-direction: column;
+    gap: 3rem;
+  }
+  .simplicity-content {
+    text-align: center;
+  }
+  .simplicity-title {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+  .simplicity-visual {
+    width: 100%;
   }
 }
 </style>
