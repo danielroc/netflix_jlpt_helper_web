@@ -89,15 +89,16 @@ const features = computed(() => [
   }
 ])
 const mockSubtitles = [
-  { text: '私', level: 'n1', reading: 'わたし', trans: 'I, me' },
-  { text: 'の', level: 'n3', reading: '', trans: 'Possessive particle' },
-  { text: '夢', level: 'n2', reading: 'ゆめ', trans: 'Dream' },
-  { text: 'は', level: 'n3', reading: '', trans: 'Topic marker' },
-  { text: '日本', level: 'n5', reading: 'にほん', trans: 'Japan', isMain: true, highlight: true },
-  { text: 'に', level: 'n3', reading: '', trans: 'To, at' },
-  { text: '行く', level: 'n4', reading: 'いく', trans: 'To go' },
-  { text: 'こと', level: 'n3', reading: '', trans: 'Thing, matter' },
-  { text: 'です', level: 'n3', reading: '', trans: 'Be, is' }
+  { text: '迅速', level: 'n1', reading: 'じんそく', trans: 'Rapid, quick', isMain: true, highlight: true  },
+  { text: 'な', level: 'n5', reading: '', trans: 'Copula (modifying)' },
+  { text: '発展', level: 'n3', reading: 'はってん', trans: 'Development' },
+  { text: 'は', level: 'n5', reading: '', trans: 'Topic marker' },
+  { text: '私', level: 'n5', reading: 'わたし', trans: 'I, me' },
+  { text: 'の', level: 'n5', reading: '', trans: 'Possessive particle' },
+  { text: '日常', level: 'n2', reading: 'にちじょう', trans: 'Daily life' },
+  { text: 'を', level: 'n5', reading: '', trans: 'Object marker' },
+  { text: '変え', level: 'n4', reading: 'かえ', trans: 'To change' },
+  { text: 'ました', level: 'n5', reading: '', trans: 'Polite past suffix' }
 ]
 
 const hoveredWord = ref(null)
