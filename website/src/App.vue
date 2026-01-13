@@ -6,6 +6,16 @@ import screenshotJa from './assets/screenshot-ja.png'
 import screenshotZh from './assets/screenshot-zh.png'
 import flashcardScreenshot from './assets/flashcard-r.png'
 import movie from './assets/movie.mov'
+import videoPoster from './assets/og-image-v7-backup.png'
+
+// Flags
+import flagTW from './assets/flags/tw.svg'
+import flagUS from './assets/flags/us.svg'
+import flagJP from './assets/flags/jp.svg'
+import flagKR from './assets/flags/kr.svg'
+import flagVN from './assets/flags/vn.svg'
+import flagTH from './assets/flags/th.svg'
+import flagID from './assets/flags/id.svg'
 
 const detectLanguage = () => {
   const navLang = navigator.language || navigator.userLanguage
@@ -46,14 +56,43 @@ watch(currentLang, (newLang) => {
 }, { immediate: true })
 
 const languages = [
-  { code: 'zh-TW', name: '繁體中文', flag: '🇹🇼' },
-  { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'ja', name: '日本語', flag: '🇯🇵' },
-  { code: 'ko', name: '한국어', flag: '🇰🇷' },
-  { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
-  { code: 'th', name: 'ไทย', flag: '🇹🇭' },
-  { code: 'id', name: 'Bahasa Indonesia', flag: '🇮🇩' }
+  { code: 'zh-TW', name: '繁體中文', flagImg: flagTW },
+  { code: 'en', name: 'English', flagImg: flagUS },
+  { code: 'ja', name: '日本語', flagImg: flagJP },
+  { code: 'ko', name: '한국어', flagImg: flagKR },
+  { code: 'vi', name: 'Tiếng Việt', flagImg: flagVN },
+  { code: 'th', name: 'ไทย', flagImg: flagTH },
+  { code: 'id', name: 'Bahasa Indonesia', flagImg: flagID }
 ]
+
+const isLangDropdownOpen = ref(false)
+
+const currentLangObj = computed(() => languages.find(l => l.code === currentLang.value) || languages[0])
+
+const toggleLangDropdown = () => {
+  isLangDropdownOpen.value = !isLangDropdownOpen.value
+}
+
+const selectLang = (code) => {
+  currentLang.value = code
+  isLangDropdownOpen.value = false
+  isMenuOpen.value = false
+}
+
+// Close dropdown when clicking outside
+const vClickOutside = {
+  mounted(el, binding) {
+    el.clickOutsideEvent = (event) => {
+      if (!(el === event.target || el.contains(event.target))) {
+        binding.value(event)
+      }
+    }
+    document.addEventListener('click', el.clickOutsideEvent)
+  },
+  unmounted(el) {
+    document.removeEventListener('click', el.clickOutsideEvent)
+  }
+}
 
 const features = computed(() => [
   {
@@ -229,12 +268,28 @@ const trackEvent = (eventName, params = {}) => {
         <a href="#demo" @click="isMenuOpen = false; trackEvent('view_demo')">{{ t('section_demo') }}</a>
         <a href="#features" @click="isMenuOpen = false">{{ t('nav_features') }}</a>
         
-        <div class="lang-switcher">
-          <select v-model="currentLang" class="lang-select pixel-border" @change="isMenuOpen = false">
-            <option v-for="lang in languages" :key="lang.code" :value="lang.code">
-              {{ lang.flag }} {{ lang.name }}
-            </option>
-          </select>
+        <div class="lang-switcher" v-click-outside="() => isLangDropdownOpen = false">
+           <div class="custom-dropdown">
+            <button class="dropdown-btn pixel-border" @click="toggleLangDropdown">
+              <img :src="currentLangObj.flagImg" alt="flag" class="lang-flag" />
+              <span class="current-lang-name">{{ currentLangObj.name }}</span>
+              <span class="dropdown-arrow">▼</span>
+            </button>
+            <transition name="fade">
+              <div class="dropdown-menu pixel-border" v-if="isLangDropdownOpen">
+                <div 
+                  v-for="lang in languages" 
+                  :key="lang.code" 
+                  class="dropdown-item" 
+                  :class="{ active: currentLang === lang.code }"
+                  @click="selectLang(lang.code)"
+                >
+                  <img :src="lang.flagImg" alt="flag" class="lang-flag" />
+                  <span class="lang-name">{{ lang.name }}</span>
+                </div>
+              </div>
+            </transition>
+          </div>
         </div>
 
         <a href="https://ko-fi.com/codeplay0301" target="_blank" class="pixel-btn sm coffee-btn-red" @click="trackEvent('click_donate')">
@@ -257,7 +312,9 @@ const trackEvent = (eventName, params = {}) => {
         
         <div class="global-support-badge pixel-border-sm">
            <span class="support-label">Supported in 7 Languages</span>
-           <div class="support-flags">🇹🇼 🇺🇸 🇯🇵 🇰🇷 🇻🇳 🇹🇭 🇮🇩</div>
+           <div class="support-flags">
+              <img v-for="lang in languages" :key="lang.code" :src="lang.flagImg" :alt="lang.name" class="mini-flag" />
+           </div>
         </div>
 
         <div class="hero-actions">
@@ -267,7 +324,7 @@ const trackEvent = (eventName, params = {}) => {
       </div>
       <div class="hero-visual">
         <div class="landscape-frame pixel-border">
-          <video :src="movie" autoplay loop muted playsinline class="hero-img-landscape"></video>
+          <video :src="movie" :poster="videoPoster" autoplay loop muted playsinline class="hero-img-landscape"></video>
           <div class="scanlines"></div>
         </div>
       </div>
@@ -507,22 +564,76 @@ const trackEvent = (eventName, params = {}) => {
   font-size: 1rem;
 }
 
-.lang-select {
-  background: var(--bg-color);
-  color: white;
-  border: 2px solid white;
-  padding: 0 0.8rem;
-  font-family: inherit;
-  font-size: 0.9rem;
-  line-height: normal;
-  cursor: pointer;
-  outline: none;
-  height: 3rem;
+.custom-dropdown {
+  position: relative;
   width: 160px;
 }
 
-.lang-select option {
+.dropdown-btn {
+  width: 100%;
+  height: 3rem;
+  background: var(--bg-color);
+  color: white;
+  padding: 0 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.dropdown-btn:hover {
+  background: #2f3542;
+}
+
+.dropdown-arrow {
+  margin-left: auto;
+  font-size: 0.7rem;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
   background: var(--secondary-color);
+  margin-top: 4px;
+  z-index: 100;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dropdown-item:hover, .dropdown-item.active {
+  background: var(--bg-color);
+}
+
+.lang-flag {
+  width: 20px;
+  height: auto;
+  display: block;
+}
+
+.mini-flag {
+  width: 24px;
+  height: auto;
+  display: inline-block;
+}
+
+.support-flags {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .lang-ko { font-family: 'Galmuri11', 'Galmuri9', sans-serif; }
