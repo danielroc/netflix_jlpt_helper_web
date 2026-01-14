@@ -318,7 +318,7 @@ const trackEvent = (eventName, params = {}) => {
         </div>
 
         <div class="hero-actions">
-          <a href="#" class="pixel-btn lg" @click="trackEvent('click_install')">{{ t('btn_install') }}</a>
+          <a href="https://chromewebstore.google.com/detail/nihongo-jlpt-assistant-fo/kenjkddfdllbjhbkommfniacdejiekab?utm_source=nihongo_website&utm_medium=cta_button&utm_campaign=launch_v1" target="_blank" class="pixel-btn lg" @click="trackEvent('click_install')">{{ t('btn_install') }}</a>
           <a href="#demo" class="pixel-btn secondary lg" @click="trackEvent('view_demo')">{{ t('btn_demo') }}</a>
         </div>
       </div>
